@@ -1,0 +1,120 @@
+{
+  "@context": {
+    "@version": 1.1,
+
+    "ace":    "https://ace-protocol.org/kg/v1/",
+    "schema": "https://schema.org/",
+    "prov":   "http://www.w3.org/ns/prov#",
+    "xsd":    "http://www.w3.org/2001/XMLSchema#",
+    "time":   "http://www.w3.org/2006/time#",
+
+    "ACEMessage":            {"@id": "ace:ACEMessage"},
+
+    "TemporalObligation":    {"@id": "ace:TemporalObligation"},
+    "CommercialOpportunity": {"@id": "ace:CommercialOpportunity"},
+    "RewardsSignal":         {"@id": "ace:RewardsSignal"},
+    "SocialUpdate":          {"@id": "ace:SocialUpdate"},
+
+    "ValueDeclaration":      {"@id": "ace:ValueDeclaration"},
+    "AuthScope":             {"@id": "ace:AuthScope"},
+    "TrustDisclosure":       {"@id": "ace:TrustDisclosure"},
+
+    "InsuranceRenewal":      {"@id": "ace:InsuranceRenewal"},
+    "PrescriptionRefill":    {"@id": "ace:PrescriptionRefill"},
+    "WellnessVisit":         {"@id": "ace:WellnessVisit"},
+    "SubscriptionRenewal":   {"@id": "ace:SubscriptionRenewal"},
+    "VehicleService":        {"@id": "ace:VehicleService"},
+    "ReturnDeadline":        {"@id": "ace:ReturnDeadline"},
+    "ShippingDeadline":      {"@id": "ace:ShippingDeadline"},
+    "ServiceBooking":        {"@id": "ace:ServiceBooking"},
+    "LicenseRenewal":        {"@id": "ace:LicenseRenewal"},
+    "SupportFollowup":       {"@id": "ace:SupportFollowup"},
+    "TaxDeadline":           {"@id": "ace:TaxDeadline"},
+    "TravelCheckin":         {"@id": "ace:TravelCheckin"},
+    "BOPISPickup":           {"@id": "ace:BOPISPickup"},
+
+    "FlashSaleOffer":        {"@id": "ace:FlashSaleOffer"},
+    "PersonalizedOffer":     {"@id": "ace:PersonalizedOffer"},
+
+    "RewardsBalanceUpdate":  {"@id": "ace:RewardsBalanceUpdate"},
+    "TierUpgradeSignal":     {"@id": "ace:TierUpgradeSignal"},
+
+    "PlatformActivityUpdate":{"@id": "ace:PlatformActivityUpdate"},
+
+    "deadline":              {"@id": "ace:deadline",           "@type": "xsd:date"},
+    "optimalWindowStart":    {"@id": "ace:optimalWindowStart", "@type": "xsd:integer"},
+    "optimalWindowEnd":      {"@id": "ace:optimalWindowEnd",   "@type": "xsd:integer"},
+    "urgencyClass":          {"@id": "ace:urgencyClass",       "@type": "@vocab"},
+    "optimalWindowShape":    {"@id": "ace:optimalWindowShape", "@type": "@vocab"},
+    "requiresPresence":      {"@id": "ace:requiresPresence",   "@type": "xsd:boolean"},
+    "referenceNumber":       {"@id": "ace:referenceNumber",    "@type": "xsd:string"},
+    "escalationHint":        {"@id": "ace:escalationHint",     "@type": "xsd:string"},
+    "counterparty":          {"@id": "ace:counterparty",       "@type": "@id"},
+    "pickupLocation":        {"@id": "ace:pickupLocation",     "@type": "@id"},
+    "pickupWindowEnd":       {"@id": "ace:pickupWindowEnd",    "@type": "xsd:dateTime"},
+    "curbsideAvailable":     {"@id": "ace:curbsideAvailable",  "@type": "xsd:boolean"},
+    "curbsideEndpoint":      {"@id": "ace:curbsideEndpoint",   "@type": "xsd:anyURI"},
+
+    "categoryAffinity":      {"@id": "ace:categoryAffinity",    "@container": "@set"},
+    "personalizationSignal": {"@id": "ace:personalizationSignal","@type": "xsd:string"},
+    "targetAudience":        {"@id": "ace:targetAudience",     "@type": "xsd:string"},
+
+    "pointsExpiry":          {"@id": "ace:pointsExpiry",       "@type": "xsd:dateTime"},
+    "redeemableValue":       {"@id": "ace:redeemableValue",    "@type": "xsd:decimal"},
+    "pointsBalance":         {"@id": "ace:pointsBalance",      "@type": "xsd:integer"},
+    "tierStatus":            {"@id": "ace:tierStatus",         "@type": "xsd:string"},
+    "loyaltyProgramName":    {"@id": "ace:loyaltyProgramName", "@type": "xsd:string"},
+
+    "offerValidUntil":       {"@id": "ace:offerValidUntil",    "@type": "xsd:dateTime"},
+    "discountPercent":       {"@id": "ace:discountPercent",    "@type": "xsd:decimal"},
+    "agentValueSignal":      {"@id": "ace:agentValueSignal",   "@type": "xsd:decimal"},
+
+    "currentValueUSD":       {"@id": "ace:currentValueUSD",    "@type": "xsd:decimal"},
+    "expectedSavingsUSD":    {"@id": "ace:expectedSavingsUSD", "@type": "xsd:decimal"},
+    "valueDecayModel":       {"@id": "ace:valueDecayModel",    "@type": "@vocab"},
+
+    "permittedActions":      {"@id": "ace:permittedActions",   "@container": "@set"},
+    "prohibitedActions":     {"@id": "ace:prohibitedActions",  "@container": "@set"},
+    "approvalRequired":      {"@id": "ace:approvalRequired",   "@type": "xsd:boolean"},
+    "delegationDepth":       {"@id": "ace:delegationDepth",    "@type": "xsd:integer"},
+
+    "affiliateRelationship": {"@id": "ace:affiliateRelationship"},
+    "recommendationBasis":   {"@id": "ace:recommendationBasis", "@type": "@vocab"},
+    "commissionDisclosure":  {"@id": "ace:commissionDisclosure","@type": "xsd:boolean"},
+
+    "policyType":            {"@id": "ace:policyType",          "@type": "@vocab"},
+    "currentPremium":        {"@id": "ace:currentPremium",      "@type": "xsd:decimal"},
+    "autoRenewEnabled":      {"@id": "ace:autoRenewEnabled",    "@type": "xsd:boolean"},
+    "medicationName":        {"@id": "ace:medicationName",      "@type": "xsd:string"},
+    "daysSupply":            {"@id": "ace:daysSupply",          "@type": "xsd:integer"},
+    "refillsRemaining":      {"@id": "ace:refillsRemaining",    "@type": "xsd:integer"},
+    "appointmentType":       {"@id": "ace:appointmentType",     "@type": "@vocab"},
+    "providerNPI":           {"@id": "ace:providerNPI",         "@type": "xsd:string"},
+    "facility":              {"@id": "ace:facility",            "@type": "@id"},
+
+    "SOFT":       {"@id": "ace:SOFT"},
+    "FIRM":       {"@id": "ace:FIRM"},
+    "HARD":       {"@id": "ace:HARD"},
+    "CLIFF":      {"@id": "ace:CLIFF"},
+
+    "GAUSSIAN":   {"@id": "ace:GAUSSIAN"},
+    "ASYMMETRIC": {"@id": "ace:ASYMMETRIC"},
+    "STEP":       {"@id": "ace:STEP"},
+    "LINEAR":     {"@id": "ace:LINEAR"},
+
+    "ALGORITHMIC":{"@id": "ace:ALGORITHMIC"},
+    "PAID":       {"@id": "ace:PAID"},
+    "ORGANIC":    {"@id": "ace:ORGANIC"},
+
+    "generatedAtTime":  {"@id": "prov:generatedAtTime",  "@type": "xsd:dateTime"},
+    "wasAttributedTo":  {"@id": "prov:wasAttributedTo",  "@type": "@id"},
+    "wasDerivedFrom":   {"@id": "prov:wasDerivedFrom",   "@type": "@id"},
+
+    "name":          {"@id": "schema:name"},
+    "leiCode":       {"@id": "schema:leiCode"},
+    "url":           {"@id": "schema:url",      "@type": "xsd:anyURI"},
+    "address":       {"@id": "schema:address"},
+    "Organization":  {"@id": "schema:Organization"},
+    "Place":         {"@id": "schema:Place"}
+  }
+}
