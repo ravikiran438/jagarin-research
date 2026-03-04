@@ -10,9 +10,9 @@ and the ACE protocol for institutional-to-agent communication.
 
 | File | Title | Status |
 |------|-------|--------|
-| [paper1_jagarin_architecture.md](papers/paper1_jagarin_architecture.md) | Jagarin: A Hibernating Personal Duty Agent with Ephemeral Cloud Escalation | Under review |
-| [paper2_dawn_algorithm.md](papers/paper2_dawn_algorithm.md) | DAWN: A Duty-Aware Wake Network Heuristic for Adaptive Mobile Agent Scheduling | Under review |
-| [paper3_ace_kg.md](papers/paper3_ace_kg.md) | ACE: An Agent-Centric Exchange Protocol for Institutional-to-Personal-Agent Communication | Under review |
+| [paper1_jagarin_architecture.md](papers/paper1_jagarin_architecture.md) | Jagarin: A Hibernating Personal Duty Agent with Ephemeral Cloud Escalation | Preprint |
+| [paper2_dawn_algorithm.md](papers/paper2_dawn_algorithm.md) | DAWN: A Duty-Aware Wake Network Heuristic for Adaptive Mobile Agent Scheduling | Preprint |
+| [paper3_ace_kg.md](papers/paper3_ace_kg.md) | ACE: An Agent-Centric Exchange Protocol for Institutional-to-Personal-Agent Communication | Preprint |
 
 ---
 
