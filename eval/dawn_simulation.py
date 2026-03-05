@@ -121,7 +121,7 @@ ESCALATE_THRESHOLD = 0.70
 
 def dawn_decision(score: float) -> str:
     if score >= ESCALATE_THRESHOLD:
-        return "ESCALATE"
+        return "ACT_NOW"
     if score >= NUDGE_THRESHOLD:
         return "NUDGE"
     return "SLEEP"
