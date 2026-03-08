@@ -3,3 +3,6 @@ __pycache__/
 *.pyc
 *.pycache
 dawn_eval_results.json
+ace_eval_results.json
+eval/.venv/
+papers/

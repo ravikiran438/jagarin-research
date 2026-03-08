@@ -1,0 +1,141 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix ace:    <https://ace-protocol.org/kg/v1/> .
+@prefix schema: <https://schema.org/> .
+@prefix prov:   <http://www.w3.org/ns/prov#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# ── Base ACEMessage shape ──────────────────────────────────────────────────────
+# Every ACE-KG instance must carry a provenance timestamp and a counterparty.
+
+ace:ACEMessageShape
+    a sh:NodeShape ;
+    sh:targetClass ace:ACEMessage ;
+    sh:property [
+        sh:path prov:generatedAtTime ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+        sh:message "ACEMessage must have exactly one prov:generatedAtTime (xsd:dateTime)." ;
+    ] ;
+    sh:property [
+        sh:path ace:counterparty ;
+        sh:minCount 1 ;
+        sh:message "ACEMessage must have at least one ace:counterparty." ;
+    ] .
+
+# ── TemporalObligation shape ───────────────────────────────────────────────────
+# Obligations carry deadline, optimal action window, and urgency class.
+# These fields drive DAWN scoring: missing any one makes the duty
+# unschedulable (violates RegistrationValidity in the TLA+ spec).
+
+ace:TemporalObligationShape
+    a sh:NodeShape ;
+    sh:targetClass ace:TemporalObligation ;
+    sh:property [
+        sh:path ace:deadline ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:message "TemporalObligation must have exactly one ace:deadline (xsd:date)." ;
+    ] ;
+    sh:property [
+        sh:path ace:optimalWindowStart ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:message "TemporalObligation must have ace:optimalWindowStart >= 0." ;
+    ] ;
+    sh:property [
+        sh:path ace:optimalWindowEnd ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:message "TemporalObligation must have ace:optimalWindowEnd >= 0." ;
+    ] ;
+    sh:property [
+        sh:path ace:urgencyClass ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( ace:SOFT ace:FIRM ace:HARD ace:CLIFF ) ;
+        sh:message "ace:urgencyClass must be one of ace:SOFT, ace:FIRM, ace:HARD, ace:CLIFF." ;
+    ] .
+
+# ── CommercialOpportunity shape ────────────────────────────────────────────────
+# Offers must declare a validity deadline so DAWN can schedule BEP-timed surface.
+# discountPercent is optional but if present must be in [0, 100].
+
+ace:CommercialOpportunityShape
+    a sh:NodeShape ;
+    sh:targetClass ace:CommercialOpportunity ;
+    sh:property [
+        sh:path ace:offerValidUntil ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+        sh:message "CommercialOpportunity must have exactly one ace:offerValidUntil (xsd:dateTime)." ;
+    ] ;
+    sh:property [
+        sh:path ace:discountPercent ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 100 ;
+        sh:message "ace:discountPercent must be a decimal in [0, 100]." ;
+    ] .
+
+# ── RewardsSignal shape ────────────────────────────────────────────────────────
+# Rewards signals must name the loyalty programme and carry a non-negative
+# balance. redeemableValue and pointsExpiry are optional; if pointsExpiry is
+# present, the backend auto-converts to a DAWN duty when value >= USD 5.
+
+ace:RewardsSignalShape
+    a sh:NodeShape ;
+    sh:targetClass ace:RewardsSignal ;
+    sh:property [
+        sh:path ace:loyaltyProgramName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "RewardsSignal must have exactly one ace:loyaltyProgramName (xsd:string)." ;
+    ] ;
+    sh:property [
+        sh:path ace:pointsBalance ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:message "RewardsSignal must have ace:pointsBalance >= 0 (xsd:integer)." ;
+    ] ;
+    sh:property [
+        sh:path ace:redeemableValue ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:message "ace:redeemableValue must be a non-negative decimal." ;
+    ] ;
+    sh:property [
+        sh:path ace:pointsExpiry ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+        sh:message "ace:pointsExpiry must be xsd:dateTime." ;
+    ] .
+
+# ── SocialUpdate shape ─────────────────────────────────────────────────────────
+# Social signals carry an agent value signal in [0, 1]; no duty is registered.
+# agentValueSignal drives BEP-only routing: surface at engagement peak or suppress.
+
+ace:SocialUpdateShape
+    a sh:NodeShape ;
+    sh:targetClass ace:SocialUpdate ;
+    sh:property [
+        sh:path ace:agentValueSignal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:message "SocialUpdate must have ace:agentValueSignal in [0.0, 1.0] (xsd:decimal)." ;
+    ] .
